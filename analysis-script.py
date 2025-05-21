@@ -1,5 +1,6 @@
 # importing required packages
 import pandas as pd
+import json
 
 # === import and cleaning of the data ===
 # loading files
@@ -39,3 +40,13 @@ print(jobs.describe().transpose().round(2))
 
 print(f"\nIndustries")
 print(industries.describe().transpose().round(2))
+
+# saving stats in a json file
+desc_dict = {
+    "Cantons" : cantons.describe().transpose().round(2).to_dict(orient="index"),
+    "Jobs" : jobs.describe().transpose().round(2).to_dict(orient="index"),
+    "Industries" : industries.describe().transpose().round(2).to_dict(orient="index")
+}
+
+with open("json_files/desc_stats.json", "w") as f:
+    json.dump(desc_dict, f, indent=4)
