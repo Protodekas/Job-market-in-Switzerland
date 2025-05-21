@@ -17,7 +17,7 @@ corr_dict = dict(zip(names["ts_key"], names["Variable"]))
 data = data.rename(columns={col: corr_dict[col] for col in data.columns if col in corr_dict})
 
 # diplaying the first lines and print the corrected csv data file
-print(data.head())
+# print(data.head())
 data.to_csv("corrected_data.csv", index=False)
 
 # dividing data table in dataframes according to the groups
@@ -25,6 +25,17 @@ cantons = names[names["Grouped by"] == "Canton"]["Variable"].tolist()
 jobs = names[names["Grouped by"] == "Occupation"]["Variable"].tolist()
 industries = names[names["Grouped by"] == "Industry"]["Variable"].tolist()
 
-for i in [cantons, jobs, industries]:
-    i = data[["date"] + [col for col in data.columns if col in i]]
-    print(i.head())
+cantons = data[["date"] + [col for col in data.columns if col in cantons]]
+jobs = data[["date"] + [col for col in data.columns if col in jobs]]
+industries = data[["date"] + [col for col in data.columns if col in industries]]
+
+# === descriptive statistics ===
+# stats by group
+print("Cantons")
+print(cantons.describe().transpose().round(2))
+
+print(f"\nJobs")
+print(jobs.describe().transpose().round(2))
+
+print(f"\nIndustries")
+print(industries.describe().transpose().round(2))
