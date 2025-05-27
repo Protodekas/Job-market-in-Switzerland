@@ -138,7 +138,6 @@ plt.tight_layout()
 plt.show()
 
 # boxplot for industries
-    # function to insert a break for long industry names
 industries_long = industries.melt(id_vars="date", var_name="Industry", value_name="Index")
 industries_long["Industry"] = industries_long["Industry"].apply(lambda x: wrap_label(x, max_char=25))
 
