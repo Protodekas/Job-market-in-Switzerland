@@ -28,9 +28,9 @@ cantons_cols = names[names["Grouped by"] == "Canton"]["Variable"].tolist()
 jobs_cols = names[names["Grouped by"] == "Occupation"]["Variable"].tolist()
 industries_cols = names[names["Grouped by"] == "Industry"]["Variable"].tolist()
 
-cantons = data[["date"] + [col for col in data.columns if col in cantons_cols]]
-jobs = data[["date"] + [col for col in data.columns if col in jobs_cols]]
-industries = data[["date"] + [col for col in data.columns if col in industries_cols]]
+cantons = data[["date"] + [col for col in data.columns if col in cantons_cols]].copy()
+jobs = data[["date"] + [col for col in data.columns if col in jobs_cols]].copy()
+industries = data[["date"] + [col for col in data.columns if col in industries_cols]].copy()
 
 # === descriptive statistics ===
 # stats by group
@@ -105,7 +105,7 @@ plt.show()
 cantons_long = cantons.melt(id_vars="date", var_name="Canton", value_name="Index")
 
 plt.figure(figsize=(16,8))
-sns.boxplot(data=cantons_long, x="Canton", y="Index", palette=colors_cantons)
+sns.boxplot(data=cantons_long, x="Canton", y="Index", hue="Canton", palette=colors_cantons)
 plt.title("Job offer index distribution by canton (2018-2025)")
 plt.xticks(rotation=90)
 plt.grid(True)
@@ -130,7 +130,7 @@ jobs_long = jobs.melt(id_vars="date", var_name="Job", value_name="Index")
 jobs_long["Job"] = jobs_long["Job"].apply(lambda x: wrap_label(x, max_char=25))
 
 plt.figure(figsize=(8,10))
-sns.boxplot(data=jobs_long, x="Job", y="Index", palette="tab10")
+sns.boxplot(data=jobs_long, x="Job", y="Index", hue="Job", palette="tab10")
 plt.title("Job offer index distribution by job (2018-2025)")
 plt.xticks(rotation=90)
 plt.grid(True)
@@ -142,7 +142,7 @@ industries_long = industries.melt(id_vars="date", var_name="Industry", value_nam
 industries_long["Industry"] = industries_long["Industry"].apply(lambda x: wrap_label(x, max_char=25))
 
 plt.figure(figsize=(10,11))
-sns.boxplot(data=industries_long, x="Industry", y="Index", palette="tab20")
+sns.boxplot(data=industries_long, x="Industry", y="Index", hue="Industry" , palette="tab20")
 plt.title("Job offer index distribution by industry (2018-2025)")
 plt.xticks(rotation=90)
 plt.grid(True)
