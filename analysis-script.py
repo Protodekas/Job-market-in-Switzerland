@@ -20,7 +20,7 @@ corr_dict = dict(zip(names["ts_key"], names["Variable"]))
 data = data.rename(columns={col: corr_dict[col] for col in data.columns if col in corr_dict})
 
 # diplaying the first lines and print the corrected csv data file
-print(data.head())
+# print(data.head())
 data.to_csv("corrected_data.csv", index=False)
 
 # dividing data table in dataframes according to the groups
