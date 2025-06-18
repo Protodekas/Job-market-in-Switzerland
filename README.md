@@ -10,3 +10,4 @@ This repository contains a quick analysis of the job market in Switzerland betwe
 - analysis
   - descriptive statistics
   - data plotting
+  - plotting the data on a dashboard for better visibility
